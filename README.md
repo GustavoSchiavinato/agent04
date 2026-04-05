@@ -38,7 +38,7 @@ TRELLO_BOARD_ID=xxxx
 
 ---
 
-##📝 04 - Criando e listando tarefas no Trello via agente
+## 📝 04 - Criando e listando tarefas no Trello via agente
 Exemplo de criação de tarefa:
 import requests, os
 
@@ -65,4 +65,30 @@ query = {'key': API_KEY, 'token': TOKEN}
 response = requests.get(url, params=query)
 for card in response.json():
     print(card['name'])
+
+---
+
+## 🔄 05 - Automatizando a movimentação de tarefas no Trello
+Para mover uma tarefa entre listas:
+CARD_ID = "ID_DA_TAREFA"
+NEW_LIST_ID = "ID_DA_LISTA_EM_ANDAMENTO"
+
+url = f"https://api.trello.com/1/cards/{CARD_ID}"
+query = {
+    'key': API_KEY,
+    'token': TOKEN,
+    'idList': NEW_LIST_ID
+}
+
+response = requests.put(url, params=query)
+print("Tarefa movida com sucesso!")
+
+---
+
+## ✅ Conclusão
+Com este agente, você pode:
+• 	Criar tarefas automaticamente.
+• 	Listar e organizar atividades.
+• 	Movimentar tarefas entre listas sem precisar acessar manualmente o Trello.
+Isso abre espaço para fluxos de trabalho inteligentes, integrando o Trello com outros sistemas e aumentando a produtividade.
 
