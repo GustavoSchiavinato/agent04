@@ -19,3 +19,50 @@ Este guia descreve como configurar um agente para organizar e automatizar tarefa
   python -m venv venv
   source venv/bin/activate   # Linux/Mac
   venv\Scripts\activate      # Windows
+
+- Instale as dependências necessárias:
+- pip install requests python-dotenv
+
+---
+
+## 🤖 03 - Configurando o agente organizador de tarefas
+- Crie um arquivo .env com suas credenciais:
+TRELLO_API_KEY=xxxx
+TRELLO_TOKEN=xxxx
+TRELLO_BOARD_ID=xxxx
+
+- Implemente um módulo agent.py que:
+- Conecte-se à API do Trello.
+- Liste e organize tarefas.
+- Automatize movimentações entre listas.
+
+---
+
+##📝 04 - Criando e listando tarefas no Trello via agente
+Exemplo de criação de tarefa:
+import requests, os
+
+API_KEY = os.getenv("TRELLO_API_KEY")
+TOKEN = os.getenv("TRELLO_TOKEN")
+BOARD_ID = os.getenv("TRELLO_BOARD_ID")
+LIST_ID = "ID_DA_LISTA_A_FAZER"
+
+url = f"https://api.trello.com/1/cards"
+query = {
+    'key': API_KEY,
+    'token': TOKEN,
+    'idList': LIST_ID,
+    'name': "Nova tarefa automatizada"
+}
+
+response = requests.post(url, params=query)
+print(response.json())
+
+Exemplo de listagem de tarefas:
+
+url = f"https://api.trello.com/1/boards/{BOARD_ID}/cards"
+query = {'key': API_KEY, 'token': TOKEN}
+response = requests.get(url, params=query)
+for card in response.json():
+    print(card['name'])
+
